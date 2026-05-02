@@ -14,10 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const requiredFields = [
       { id: 'propertyAddress', label: 'propertyAddress' },
       { id: 'fullName', label: 'fullName' },
-      { id: 'email', label: 'email' },
-      { id: 'phone', label: 'phone' },
-      { id: 'smsConsent', label: 'smsConsent' },
-      { id: 'contactConsent', label: 'contactConsent' },
     ];
 
     for (const field of requiredFields) {
@@ -30,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    // Email format check
+    // Email format check (only if email is filled in)
     const emailEl = document.getElementById('email');
     const emailError = document.getElementById('error-email');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailEl && !emailRegex.test(emailEl.value.trim())) {
+    if (emailEl && emailEl.value.trim() && !emailRegex.test(emailEl.value.trim())) {
       emailError.classList.add('show');
       isValid = false;
     }
@@ -61,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
         smsOptInTimestamp: document.getElementById('smsConsent').checked
           ? new Date().toISOString()
           : null,
-        contactConsent: document.getElementById('contactConsent').checked,
-        contactConsentTimestamp: document.getElementById('contactConsent').checked
+        ageConfirm: document.getElementById('ageConfirm').checked,
+        ageConfirmTimestamp: document.getElementById('ageConfirm').checked
           ? new Date().toISOString()
           : null,
-        ipAddress: '', // Set via server-side if needed
+        ipAddress: '',
         userAgent: navigator.userAgent,
       },
     };
